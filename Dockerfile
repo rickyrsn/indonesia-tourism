@@ -11,7 +11,7 @@ COPY custom.css /usr/share/nginx/html
 COPY script.js /usr/share/nginx/html
 
 # Salin file gambar ke dalam direktori default Nginx
-COPY images /usr/share/nginx/html/images
+# COPY images /usr/share/nginx/html/images
 
 # Salin file konfigurasi Nginx kustom
 COPY nginx.conf /etc/nginx/conf.d/default.conf
