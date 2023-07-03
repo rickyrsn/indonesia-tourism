@@ -5,10 +5,10 @@ FROM nginx
 COPY *.html /usr/share/nginx/html/
 
 # Salin file CSS ke dalam direktori default Nginx
-COPY custom.css /usr/share/nginx/html
+COPY *.css /usr/share/nginx/html
 
 # Salin file JavaScript ke dalam direktori default Nginx
-COPY script.js /usr/share/nginx/html
+COPY *.js /usr/share/nginx/html
 
 # Salin file gambar ke dalam direktori default Nginx
 # COPY images /usr/share/nginx/html/images
