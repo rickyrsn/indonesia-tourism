@@ -14,7 +14,7 @@ jobs:
           name: Validate HTML files
           command: |
             # Install HTML validator
-            apt-get update && apt-get install -y w3c-markup-validator
+            apt-get update && apt-get install -y w3c-markup-validator && apt-get install -y nginx
 
             # Validate HTML files
             find . -name "*.html" -type f -exec htmlvalidator {} \;
