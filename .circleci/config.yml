@@ -15,10 +15,10 @@ jobs:
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "main" ]; then
               DOCKER_TAG="master-latest"
-              DOCKER_TAG="master-$(git rev-parse --short HEAD)
+              DOCKER_TAG="master-$(git rev-parse --short HEAD)"
             elif [ "$CIRCLE_BRANCH" == "develop" ]; then
-              DOCKER_TAG="develop-latest
-              DOCKER_TAG="develop-$(git rev-parse --short HEAD)
+              DOCKER_TAG="develop-latest"
+              DOCKER_TAG="develop-$(git rev-parse --short HEAD)"
             else
               DOCKER_TAG="branch-$CIRCLE_BRANCH"
             fi
