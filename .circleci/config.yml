@@ -13,19 +13,26 @@ jobs:
       - run:
           name: Build Docker image
           command: |
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
             if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "main" ]; then
               DOCKER_TAG="master-latest"
+              docker build -t $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG .
+              docker push docker.io/library/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
               DOCKER_TAG="master-$(git rev-parse --short HEAD)"
+              docker build -t $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG .
+              docker push docker.io/library/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
             elif [ "$CIRCLE_BRANCH" == "develop" ]; then
               DOCKER_TAG="develop-latest"
+              docker build -t $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG .
+              docker push docker.io/library/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
               DOCKER_TAG="develop-$(git rev-parse --short HEAD)"
+              docker build -t $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG .
+              docker push docker.io/library/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
             else
-              DOCKER_TAG="branch-$CIRCLE_BRANCH"
+              DOCKER_TAG="branch-$CIRCLE_BRANCH-$(git rev-parse --short HEAD)"
+              docker build -t $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG .
+              docker push docker.io/library/$CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
             fi
-
-            docker build -t $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG .
-            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-            docker push $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
 
 workflows:
   version: 2.1
