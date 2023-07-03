@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transaksi Pemesanan - Ricky Sutjipto Nurdjaya - 201011450483</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="form.css">
+</head>
+<body>
+  <header>
+    <h1>Transaksi Pemesanan</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="culture.html">Kebudayaan</a></li>
+      <li><a href="tourism.html">Tempat Wisata</a></li>
+      <li><a href="hotels.html">Daftar Hotel</a></li>
+      <li><a href="transactions.html">Transaksi</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="form-container">
+      <h2>Pemesanan Hotel atau Tempat Wisata</h2>
+      <form>
+        <label for="nama">Nama:</label>
+        <input type="text" id="nama" name="nama" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="destinasi">Destinasi:</label>
+        <select id="destinasi" name="destinasi" required onchange="toggleFormFields()">
+          <option value="">Pilih Destinasi</option>
+          <option value="hotel">Hotel</option>
+          <option value="tempat-wisata">Tempat Wisata</option>
+        </select>
+
+        <div id="hotelFields" style="display: none;">
+          <label for="hotel">Hotel:</label>
+          <select id="hotel" name="hotel">
+            <option value="">Pilih Hotel</option>
+            <option value="Hotel Bali Beach Resort">Hotel Bali Beach Resort - Rp 2.000.000/malam</option>
+            <option value="Hotel Jogja Paradise">Hotel Jogja Paradise - Rp 1.500.000/malam</option>
+            <option value="Hotel Komodo Island Resort">Hotel Komodo Island Resort - Rp 3.500.000/malam</option>
+            <option value="Hotel Raja Ampat Paradise">Hotel Raja Ampat Paradise - Rp 4.000.000/malam</option>
+          </select>
+
+          <label for="checkin">Check-in:</label>
+          <input type="date" id="checkin" name="checkin">
+          
+          <label for="checkout">Check-out:</label>
+          <input type="date" id="checkout" name="checkout">
+        </div>
+
+        <div id="wisataFields" style="display: none;">
+          <label for="tanggal">Tanggal Kedatangan:</label>
+          <input type="date" id="tanggal" name="tanggal">
+        </div>
+
+        <label for="pesan">Pesan Tambahan:</label>
+        <textarea id="pesan" name="pesan" rows="4"></textarea>
+
+        <input type="submit" value="Submit">
+      </form>
+
+      <div id="total-harga">
+        <h3>Total Harga:</h3>
+        <p id="harga"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2023 Pariwisata Indonesia. Ricky Sutjipto Nurdjaya - 201011450483.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

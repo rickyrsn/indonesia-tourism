@@ -1,0 +1,54 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.8
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          version: 20.10.7
+
+      - run:
+          name: Validate HTML files
+          command: |
+            # Install HTML validator
+            apt-get update && apt-get install -y w3c-markup-validator
+
+            # Validate HTML files
+            find . -name "*.html" -type f -exec htmlvalidator {} \;
+
+      - run:
+          name: Validate Nginx configuration
+          command: |
+            # Validate Nginx configuration
+            nginx -t -c /path/to/nginx.conf
+            export VALIDATE_EXIT_CODE=$?
+
+      - run:
+          name: Build Docker image
+          command: |
+            if [ $VALIDATE_EXIT_CODE -eq 0 ]; then
+              if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "main" ]; then
+                DOCKER_TAG="master-latest"
+                DOCKER_TAG="master--$(git rev-parse --short HEAD)"
+              elif [ "$CIRCLE_BRANCH" == "develop" ]; then
+                DOCKER_TAG="develop-latest"
+                DOCKER_TAG="develop-$(git rev-parse --short HEAD)"
+              else
+                DOCKER_TAG="branch-$CIRCLE_BRANCH"
+              fi
+
+              docker build -t $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG .
+              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+              docker push $CIRCLE_PROJECT_REPONAME:$DOCKER_TAG
+            else
+              echo "Validation errors found. Aborting Docker image build."
+            fi
+
+workflows:
+  version: 2.1
+  build_and_push:
+    jobs:
+      - build
