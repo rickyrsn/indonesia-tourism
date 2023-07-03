@@ -23,7 +23,7 @@ jobs:
           name: Validate Nginx configuration
           command: |
             # Validate Nginx configuration
-            nginx -t -c /path/to/nginx.conf
+            nginx -t -c nginx.conf
             export VALIDATE_EXIT_CODE=$?
 
       - run:
