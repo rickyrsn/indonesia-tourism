@@ -14,3 +14,18 @@ p {
   font-size: 18px;
   color: #666;
 }
+
+/* Media queries for mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
